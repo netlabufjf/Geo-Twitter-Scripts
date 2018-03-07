@@ -37,7 +37,9 @@ Acesse https://apps.twitter.com/ preencha os campos obrigatórios assim como aba
 
 Vá até a aba **Keys and Access Tokens** e acione o botão **Regenarate Consumer Key and Secret**
 
+
 # Copie a API Key e API Secret 
+
 
 ![alt text](https://github.com/netlabufjf/Geo-Twitter-Scripts/blob/master/images/7.png "Criação da Chave de Api")
 
@@ -46,6 +48,7 @@ Vá até a aba **Keys and Access Tokens** e acione o botão **Regenarate Consume
 Vá até a aba **Keys and Access Tokens** e acione o botão **Regenarate My Access Token and Token Secret**
 
 # Copie o Access Token e Access Token Secret
+
 
 ![alt text](https://github.com/netlabufjf/Geo-Twitter-Scripts/blob/master/images/8.png "Criação do Token")
 
