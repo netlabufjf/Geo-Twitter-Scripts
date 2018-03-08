@@ -52,4 +52,5 @@ Vá até a aba **Keys and Access Tokens** e acione o botão **Regenarate My Acce
 
 ![alt text](https://github.com/netlabufjf/Geo-Twitter-Scripts/blob/master/images/8.png "Criação do Token")
 
-
+### Insira suas chaves nesse formulário:
+https://goo.gl/forms/rOuFjWJ0gXaxp8Yj1
