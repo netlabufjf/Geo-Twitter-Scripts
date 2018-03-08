@@ -33,19 +33,19 @@ Acesse https://apps.twitter.com/ preencha os campos obrigatórios assim como aba
 
 ![alt text](https://github.com/netlabufjf/Geo-Twitter-Scripts/blob/master/images/5.png "Criação da Aplicação")
 
-### 2. Geração das Chaves de API
+### 2. Chaves de API
 
-Vá até a aba **Keys and Access Tokens** e acione o botão **Regenarate Consumer Key and Secret**
+Vá até a aba **Keys and Access Tokens**
 
 
 # Copie a API Key e API Secret 
 
 
-![alt text](https://github.com/netlabufjf/Geo-Twitter-Scripts/blob/master/images/7.png "Criação da Chave de Api")
+![alt text](https://github.com/netlabufjf/Geo-Twitter-Scripts/blob/master/images/7.png "Chaves de Api")
 
 ### 3. Geração dos Tokens
 
-Vá até a aba **Keys and Access Tokens** e acione o botão **Regenarate My Access Token and Token Secret**
+Vá até a aba **Keys and Access Tokens** e acione o botão **Create my access token**
 
 # Copie o Access Token e Access Token Secret
 
