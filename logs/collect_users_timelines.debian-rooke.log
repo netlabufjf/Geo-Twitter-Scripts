@@ -1,0 +1,58 @@
+[ 2018-03-12 16:10:40,211 ] [INFO] User 999332724 - Starting
+[ 2018-03-12 16:10:46,463 ] [INFO] PARAMS: {'count': '200', 'exclude_replies': 'False', 'trim_user': 'True', 'id': '999332724', 'include_rts': 'True'}
+[ 2018-03-12 16:11:46,055 ] [INFO] PARAMS: {'count': '200', 'exclude_replies': 'False', 'trim_user': 'True', 'id': '999332724', 'include_rts': 'True'}
+[ 2018-03-12 16:18:45,427 ] [INFO] PARAMS: {'count': '200', 'exclude_replies': 'False', 'trim_user': 'True', 'id': '999332724', 'include_rts': 'True'}
+[ 2018-03-12 16:21:15,323 ] [INFO] PARAMS: {'count': '200', 'exclude_replies': 'False', 'trim_user': 'True', 'id': '999332724', 'include_rts': 'True'}
+[ 2018-03-12 16:29:33,083 ] [INFO] PARAMS: {'count': '200', 'exclude_replies': 'False', 'trim_user': 'True', 'id': '999332724', 'include_rts': 'True'}
+[ 2018-03-12 16:29:53,334 ] [INFO] PARAMS: {'count': '200', 'exclude_replies': 'False', 'trim_user': 'True', 'id': '999332724', 'include_rts': 'True'}
+[ 2018-03-12 16:32:46,529 ] [INFO] PARAMS: {'id': '999332724'}
+[ 2018-03-12 16:33:50,812 ] [INFO] PARAMS: {}
+[ 2018-03-12 16:33:51,554 ] [INFO] PARAMS: {'create': 'True'}
+[ 2018-03-12 16:33:51,558 ] [INFO] PARAMS: {'id': '999332724'}
+[ 2018-03-12 16:33:57,675 ] [INFO] PARAMS: {}
+[ 2018-03-12 16:33:58,569 ] [INFO] PARAMS: {'create': 'True'}
+[ 2018-03-12 16:33:58,573 ] [INFO] PARAMS: {'id': '999332724'}
+[ 2018-03-12 16:34:04,619 ] [INFO] PARAMS: {}
+[ 2018-03-12 16:34:05,366 ] [INFO] PARAMS: {'create': 'True'}
+[ 2018-03-12 16:34:45,554 ] [INFO] PARAMS: {'id': '999332724'}
+[ 2018-03-12 16:49:24,884 ] [INFO] PARAMS: {'id': '145635516'}
+[ 2018-03-12 16:49:25,782 ] [INFO] PARAMS: {'create': 'True'}
+[ 2018-03-12 16:49:25,786 ] [INFO] PARAMS: {'max_id': '968470909496512511', 'id': '145635516'}
+[ 2018-03-12 16:49:26,507 ] [INFO] PARAMS: {'create': 'True'}
+[ 2018-03-12 16:49:26,517 ] [INFO] PARAMS: {'max_id': '965277029750005760', 'id': '145635516'}
+[ 2018-03-12 16:49:26,889 ] [INFO] PARAMS: {'create': 'True'}
+[ 2018-03-12 16:51:03,942 ] [INFO] PARAMS: {'count': '200', 'exclude_replies': 'False', 'trim_user': 'True', 'id': '145635516', 'include_rts': 'True'}
+[ 2018-03-12 16:51:05,418 ] [INFO] PARAMS: {'create': 'True'}
+[ 2018-03-12 16:51:05,435 ] [INFO] PARAMS: {'count': '200', 'exclude_replies': 'False', 'trim_user': 'True', 'max_id': '936606056897236991', 'id': '145635516', 'include_rts': 'True'}
+[ 2018-03-12 16:51:06,134 ] [INFO] PARAMS: {'create': 'True'}
+[ 2018-03-12 16:51:06,152 ] [INFO] PARAMS: {'count': '200', 'exclude_replies': 'False', 'trim_user': 'True', 'max_id': '911230956677337088', 'id': '145635516', 'include_rts': 'True'}
+[ 2018-03-12 16:51:06,806 ] [INFO] PARAMS: {'create': 'True'}
+[ 2018-03-12 16:51:06,825 ] [INFO] PARAMS: {'count': '200', 'exclude_replies': 'False', 'trim_user': 'True', 'max_id': '889185358390407168', 'id': '145635516', 'include_rts': 'True'}
+[ 2018-03-12 16:51:07,806 ] [INFO] PARAMS: {'create': 'True'}
+[ 2018-03-12 16:51:07,823 ] [INFO] PARAMS: {'count': '200', 'exclude_replies': 'False', 'trim_user': 'True', 'max_id': '872916096373989375', 'id': '145635516', 'include_rts': 'True'}
+[ 2018-03-12 16:51:08,539 ] [INFO] PARAMS: {'create': 'True'}
+[ 2018-03-12 16:51:08,553 ] [INFO] PARAMS: {'count': '200', 'exclude_replies': 'False', 'trim_user': 'True', 'max_id': '856997510589681663', 'id': '145635516', 'include_rts': 'True'}
+[ 2018-03-12 16:51:09,282 ] [INFO] PARAMS: {'create': 'True'}
+[ 2018-03-12 16:51:09,298 ] [INFO] PARAMS: {'count': '200', 'exclude_replies': 'False', 'trim_user': 'True', 'max_id': '822497889670860799', 'id': '145635516', 'include_rts': 'True'}
+[ 2018-03-12 16:51:10,038 ] [INFO] PARAMS: {'create': 'True'}
+[ 2018-03-12 16:51:10,053 ] [INFO] PARAMS: {'count': '200', 'exclude_replies': 'False', 'trim_user': 'True', 'max_id': '803358243129061375', 'id': '145635516', 'include_rts': 'True'}
+[ 2018-03-12 16:51:10,666 ] [INFO] PARAMS: {'create': 'True'}
+[ 2018-03-12 16:51:10,740 ] [INFO] PARAMS: {'count': '200', 'exclude_replies': 'False', 'trim_user': 'True', 'max_id': '789797541588107264', 'id': '145635516', 'include_rts': 'True'}
+[ 2018-03-12 16:51:11,873 ] [INFO] PARAMS: {'create': 'True'}
+[ 2018-03-12 16:51:11,892 ] [INFO] PARAMS: {'count': '200', 'exclude_replies': 'False', 'trim_user': 'True', 'max_id': '768203177011376127', 'id': '145635516', 'include_rts': 'True'}
+[ 2018-03-12 16:51:12,996 ] [INFO] PARAMS: {'create': 'True'}
+[ 2018-03-12 16:51:13,014 ] [INFO] PARAMS: {'count': '200', 'exclude_replies': 'False', 'trim_user': 'True', 'max_id': '752796771160580095', 'id': '145635516', 'include_rts': 'True'}
+[ 2018-03-12 16:51:13,608 ] [INFO] PARAMS: {'create': 'True'}
+[ 2018-03-12 16:51:13,628 ] [INFO] PARAMS: {'count': '200', 'exclude_replies': 'False', 'trim_user': 'True', 'max_id': '736587323396231167', 'id': '145635516', 'include_rts': 'True'}
+[ 2018-03-12 16:51:14,498 ] [INFO] PARAMS: {'create': 'True'}
+[ 2018-03-12 16:51:14,515 ] [INFO] PARAMS: {'count': '200', 'exclude_replies': 'False', 'trim_user': 'True', 'max_id': '724925142296608767', 'id': '145635516', 'include_rts': 'True'}
+[ 2018-03-12 16:51:15,079 ] [INFO] PARAMS: {'create': 'True'}
+[ 2018-03-12 16:51:15,096 ] [INFO] PARAMS: {'count': '200', 'exclude_replies': 'False', 'trim_user': 'True', 'max_id': '705393507834396673', 'id': '145635516', 'include_rts': 'True'}
+[ 2018-03-12 16:51:15,951 ] [INFO] PARAMS: {'create': 'True'}
+[ 2018-03-12 16:51:15,976 ] [INFO] PARAMS: {'count': '200', 'exclude_replies': 'False', 'trim_user': 'True', 'max_id': '687243879070973951', 'id': '145635516', 'include_rts': 'True'}
+[ 2018-03-12 16:51:16,570 ] [INFO] PARAMS: {'create': 'True'}
+[ 2018-03-12 16:51:16,589 ] [INFO] PARAMS: {'count': '200', 'exclude_replies': 'False', 'trim_user': 'True', 'max_id': '672424124283768831', 'id': '145635516', 'include_rts': 'True'}
+[ 2018-03-12 16:51:17,247 ] [INFO] PARAMS: {'create': 'True'}
+[ 2018-03-12 16:51:17,263 ] [INFO] PARAMS: {'count': '200', 'exclude_replies': 'False', 'trim_user': 'True', 'max_id': '660119546431311871', 'id': '145635516', 'include_rts': 'True'}
+[ 2018-03-12 16:51:17,567 ] [INFO] PARAMS: {'create': 'True'}
+[ 2018-03-12 16:57:08,300 ] [INFO] User 145635516 - Finished (30 tweets)
