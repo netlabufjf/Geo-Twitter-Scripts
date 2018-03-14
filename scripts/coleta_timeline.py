@@ -51,13 +51,6 @@ acess_token_list = chaves.acess_token.tolist()
 access_token_secret_list = chaves.access_token_secret.tolist()
 
 
-
-auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_token, access_token_secret)
-#api = tweepy.API(auth)
-
-api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True, compression=True)
-
 def para_ou_pega_nova_chave(param_api):
     global consumer_key_list
     global consumer_secret_list
@@ -79,17 +72,22 @@ def para_ou_pega_nova_chave(param_api):
 
         trava = True
     else:
+        if( param_api != None):
 
-        # adiciona a chave esgotada no final da fila
-        consumer_key_list.append(param_api.auth.consumer_key)
-        consumer_secret_list.append(param_api.auth.consumer_secret)
-        acess_token_list.append(param_api.auth.access_token)
-        access_token_secret_list.append(param_api.auth.access_token_secret)
+            logging.info("Leave api key - {}".format(param_api.auth.consumer_key))
+
+            # adiciona a chave esgotada no final da fila
+            consumer_key_list.append(param_api.auth.consumer_key)
+            consumer_secret_list.append(param_api.auth.consumer_secret)
+            acess_token_list.append(param_api.auth.access_token)
+            access_token_secret_list.append(param_api.auth.access_token_secret)
 
         # recupera a chave do topo da fila
         auth = tweepy.OAuthHandler(consumer_key_list.pop(), consumer_secret_list.pop())
         auth.set_access_token(acess_token_list.pop(), access_token_secret_list.pop())
         api = tweepy.API(auth, compression=True)
+
+        logging.info("Change api key to - {}".format(api.auth.consumer_key))
 
     lock.release()
 
@@ -102,114 +100,68 @@ def para_ou_pega_nova_chave(param_api):
 # https://www.mapdevelopers.com/geocode_bounding_box.php
 # https://stackoverflow.com/questions/30758203/tweepy-location-on-twitter-api-filter-always-throws-406-error
 
-    def limit_handled(cursor):
-        while True:
-            try:
-                yield cursor.next()
-            except tweepy.RateLimitError:
-                # troca a chave
-                time.sleep(15 * 60)
-
-    def get_twitter_timeline(user_id):
-        # https://twitter.com/intent/user?user_id=145635516
-        # 999332724
-        user_id = 145635516
-
-        # In this example, the handler is time.sleep(15 * 60),
-        # but you can of course handle it in any way you want.
+#api = para_ou_pega_nova_chave(None)
+# recupera a chave do topo da fila
+auth = tweepy.OAuthHandler(consumer_key_list.pop(), consumer_secret_list.pop())
+auth.set_access_token(acess_token_list.pop(), access_token_secret_list.pop())
+api = tweepy.API(auth, compression=True)
 
 
-        for follower in limit_handled(tweepy.Cursor(api.followers).items()):
-            if follower.friends_count < 300:
-                print(follower.screen_name)
+contador = 0
 
+def get_twitter_timeline(user_id):
+    # https://twitter.com/intent/user?user_id=145635516
 
+    global api
+    global contador
 
-        num_pagina = 0
+    output_filename = "{}/data/user_timeline/{}.json.gz".format(dir_base, user_id)
 
-        while True:
-            try:
-                # tenta recuperar a pagina, se nao conseguir 2 coisas podem acontecer
-                # 1 - excedeu o limite de paginas
-                # 2 - excedeu o limite de requisicoes a cada 15 min
-                page = tweepy.Cursor(api.user_timeline, id = user_id, trim_user=True, exclude_replies=False, include_rts=True, count=200, page=num_pagina ).pages().next()
+    # Skip user if it was already collected
+    if os.path.exists(output_filename):
+        logging.info("User {} - Skipped".format(user_id))
+        return
 
-                num_pagina += 1
+    # Senao existe usuario coletado...
+    logging.info("User {} - Starting".format(user_id))
 
-                geotagged_tweets = [tweet._json for tweet in page if tweet.geo]
-                user_timeline.extend(geotagged_tweets)
+    num_pagina = 0
+    user_timeline = []
 
-            # Se excedeu o numero de requisicoes
-            except tweepy.RateLimitError:
-                # troca a chave
-                api = para_ou_pega_nova_chave(api)
-            except tweepy.TweepError as e:
-                # se for erro de permissao e 401 - registra e nao faz nada
-                # se for erro de que nao tem mais paginas para retornar - termina o while
+    while True:
+        try:
+            # tenta recuperar a pagina, se nao conseguir 2 coisas podem acontecer
+            # 1 - excedeu o limite de paginas
+            # 2 - excedeu o limite de requisicoes a cada 15 min
+            page = tweepy.Cursor(api.user_timeline, id = user_id, trim_user=True, exclude_replies=False, include_rts=True, count=200, page=num_pagina ).pages().next()
 
-        pages.next()
-        pages.index
+            num_pagina += 1
 
-        cursor.
-
-        while True:
-            try:
-                yield cursor.next()
-            except tweepy.RateLimitError:
-                # troca a chave
-                time.sleep(15 * 60)
-
-        for page in c.pages():
             geotagged_tweets = [tweet._json for tweet in page if tweet.geo]
             user_timeline.extend(geotagged_tweets)
 
+        except StopIteration:
+            # se for erro de que nao tem mais paginas para retornar - termina o while
+            break
+        except tweepy.TweepError as e:
+            # Se excedeu o numero de requisicoes
+            if e.response.status_code == 429:
+                # troca a chave
+                api = para_ou_pega_nova_chave(api)
+            else:
+                # Se o erro for outro, registra e sai do loop
+                logging.warning("User {} - Error Status: {} - Reason: {} - Error: {}".format(user_id, e.response.status_code, e.response.reason, e.response.text))
+                break
 
 
-
-
-
-
-
-
-output_filename = "{}/data/user_timeline/{}.json.gz".format(dir_base, user_id)
-
-
-# Skip user if it was already collected
-if os.path.exists(output_filename):
-    logging.info("[User {} - Skipped".format(user_id))
-# Collect all tweets of the user
-else:
-    logging.info("User {} - Starting".format(user_id))
-
-    user_timeline = []
-
-    #try:
-    c = tweepy.Cursor(api.user_timeline, id = user_id, trim_user=True, exclude_replies=False, include_rts=True, count=200)
-    for page in c.pages():
-        geotagged_tweets = [tweet._json for tweet in page if tweet.geo]
-        user_timeline.extend(geotagged_tweets)
-
-    user_timeline
-
-    # API error
-    except tweepy.RateLimitError:
-        rates = api.rate_limit_status()
-        rate_limit_reset = rates["resources"]["statuses"]["/statuses/user_timeline"]["reset"]
-        to_sleep = max(rate_limit_reset - int(time.time()), 0)
-        logging.warning("User {} - Rate limit exceeded, sleeping {} seconds".format(user_id, to_sleep+1))
-        time.sleep(to_sleep+1)
-    except tweepy.TweepError, error:
-        logging.warning("User {} - API error code: {} - Message: {}".format(user_id, error.message[0]['code'],error.message[0]['message']))
-    except:
-        e = sys.exc_info()[0]
-        logging.warning("User {} - Sys Error: {}".format(user_id, e))
-
-    bytes(json.dumps(user_timeline), 'utf-8')
-
-    # Output result only if there was no error
+    # Se foram coletados tweets geolocalizados...
     if user_timeline is not None and len(user_timeline) > 0:
         with gzip.open(output_filename, "w") as outfile:
-            outfile.write(bytes(, "UTF-8"))
+            try:
+                dump = bytes(json.dumps(user_timeline), "UTF-8")
+                outfile.write(dump)
+            except:
+                logging.warning("User {} - Erro ao gerar bytes para escrita no json".format(user_id))
         logging.info("User {} - Finished ({} tweets)".format(user_id, len(user_timeline)))
     else:
         logging.info("User {} - Terminated".format(user_id))
