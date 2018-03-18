@@ -4,7 +4,7 @@ import threading
 hostname = socket.gethostname()
 
 import os
-#dir_base = os.path.abspath(os.path.dirname(__file__))
+# dir_base = os.path.abspath(os.path.dirname(__file__))
 dir_base = os.path.abspath(os.getcwd())
 
 import sys
@@ -14,14 +14,15 @@ sys.path = ["{}/libs/twitter".format(dir_base)]+sys.path
 #import twitter
 
 import logging
-logging.basicConfig(filename="{}/logs/collect_users_timelines.{}.log".format(dir_base, hostname), filemode="a", level=logging.INFO, format="[ %(asctime)s ] [%(levelname)s] %(message)s")
+logging.basicConfig(filename="{}/logs/collect_users_timelines.{}.log".format(dir_base, hostname),
+                    filemode="a", level=logging.INFO, format="[ %(asctime)s ] [%(levelname)s] %(message)s")
 
 import time
 import json
 import gzip
 import pandas as pd
 
-#Graph library
+# Graph library
 import networkx as nx
 
 import threading
@@ -29,19 +30,19 @@ from concurrent.futures import ThreadPoolExecutor
 
 lock = threading.Lock()
 
-#import keys from keys.py
-#from keys import consumer_key, consumer_secret, access_token, access_token_secret
+# import keys from keys.py
+# from keys import consumer_key, consumer_secret, access_token, access_token_secret
 execfile("{}/scripts/keys.py".format(dir_base))
 
 # Go to http://dev.twitter.com and create an app (apps.twitter.com).
 # The consumer key and secret will be generated for you after
-#consumer_key = ""
-#consumer_secret = ""
+# consumer_key = ""
+# consumer_secret = ""
 
 # After the step above, you will be redirected to your app's page.
 # Create an access token under the the "Your access token" section
-#access_token = ""
-#access_token_secret = ""
+# access_token = ""
+# access_token_secret = ""
 
 chaves = pd.read_csv("{}/scripts/keys_twitter.csv".format(dir_base))
 
@@ -51,7 +52,7 @@ acess_token_list = chaves.acess_token.tolist()
 access_token_secret_list = chaves.access_token_secret.tolist()
 
 
-def para_ou_pega_nova_chave(param_api):
+def para_ou_pega_nova_chave(param_api=None):
     global consumer_key_list
     global consumer_secret_list
     global acess_token_list
@@ -66,13 +67,13 @@ def para_ou_pega_nova_chave(param_api):
     # antes de tenta adquirir nova chave
     # verifica se nao tem mais chaves disponiveis e solta o sleep
     if(len(consumer_key_list) == 0 and
-        len(consumer_secret_list) == 0 and
-        len(acess_token_list) == 0 and
-        len(access_token_secret_list) == 0):
+            len(consumer_secret_list) == 0 and
+            len(acess_token_list) == 0 and
+            len(access_token_secret_list) == 0):
 
         trava = True
     else:
-        if( param_api != None):
+        if(param_api != None):
 
             logging.info("Leave api key - {}".format(param_api.auth.consumer_key))
 
@@ -100,14 +101,15 @@ def para_ou_pega_nova_chave(param_api):
 # https://www.mapdevelopers.com/geocode_bounding_box.php
 # https://stackoverflow.com/questions/30758203/tweepy-location-on-twitter-api-filter-always-throws-406-error
 
-#api = para_ou_pega_nova_chave(None)
+# api = para_ou_pega_nova_chave(None)
 # recupera a chave do topo da fila
-auth = tweepy.OAuthHandler(consumer_key_list.pop(), consumer_secret_list.pop())
-auth.set_access_token(acess_token_list.pop(), access_token_secret_list.pop())
-api = tweepy.API(auth, compression=True)
+
+
+api = para_ou_pega_nova_chave()
 
 
 contador = 0
+
 
 def get_twitter_timeline(user_id):
     # https://twitter.com/intent/user?user_id=145635516
@@ -133,7 +135,8 @@ def get_twitter_timeline(user_id):
             # tenta recuperar a pagina, se nao conseguir 2 coisas podem acontecer
             # 1 - excedeu o limite de paginas
             # 2 - excedeu o limite de requisicoes a cada 15 min
-            page = tweepy.Cursor(api.user_timeline, id = user_id, trim_user=True, exclude_replies=False, include_rts=True, count=200, page=num_pagina ).pages().next()
+            page = tweepy.Cursor(api.user_timeline, id=user_id, trim_user=True,
+                                 exclude_replies=False, include_rts=True, count=200, page=num_pagina).pages().next()
 
             num_pagina += 1
 
@@ -150,18 +153,26 @@ def get_twitter_timeline(user_id):
                 api = para_ou_pega_nova_chave(api)
             else:
                 # Se o erro for outro, registra e sai do loop
-                logging.warning("User {} - Error Status: {} - Reason: {} - Error: {}".format(user_id, e.response.status_code, e.response.reason, e.response.text))
+                logging.warning("User {} - Error Status: {} - Reason: {} - Error: {}".format(user_id,
+                                                                                             e.response.status_code, e.response.reason, e.response.text))
                 break
-
 
     # Se foram coletados tweets geolocalizados...
     if user_timeline is not None and len(user_timeline) > 0:
         with gzip.open(output_filename, "w") as outfile:
             try:
-                dump = bytes(json.dumps(user_timeline), "UTF-8")
+                # se python 2.7
+                if sys.version_info[0] < 3:
+                    dump = str(json.dumps(user_timeline))
+                else:
+                    dump = bytes(json.dumps(user_timeline), "UTF-8")
                 outfile.write(dump)
             except:
-                logging.warning("User {} - Erro ao gerar bytes para escrita no json".format(user_id))
+                logging.warning(
+                    "User {} - Erro ao gerar bytes para escrita no json".format(user_id))
         logging.info("User {} - Finished ({} tweets)".format(user_id, len(user_timeline)))
     else:
         logging.info("User {} - Terminated".format(user_id))
+
+
+get_twitter_timeline(145635516)
