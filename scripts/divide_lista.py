@@ -35,6 +35,8 @@ def divide_arquivo(cidade_param, quantidade):
         arquivos[contador].write(line)
         contador += 1
 
+    arq_principal.close()
+
     for i in range(0, quantidade):
         arquivos[i].close()
 

@@ -1,38 +1,33 @@
 import tweepy
 import socket
 import threading
-hostname = socket.gethostname()
-
 import os
-# dir_base = os.path.abspath(os.path.dirname(__file__))
-dir_base = os.path.abspath(os.getcwd())
-
 import sys
-# https://github.com/sixohsix/twitter
-sys.path = ["{}/libs/twitter".format(dir_base)]+sys.path
-
-#import twitter
-
 import logging
-logging.basicConfig(filename="{}/logs/collect_users_timelines.{}.log".format(dir_base, hostname),
-                    filemode="a", level=logging.INFO, format="[ %(asctime)s ] [%(levelname)s] %(message)s")
-
 import time
 import json
 import gzip
 import pandas as pd
+# import networkx as nx
+# import threading
+# from concurrent.futures import ThreadPoolExecutor
 
-# Graph library
-import networkx as nx
+hostname = socket.gethostname()
 
-import threading
-from concurrent.futures import ThreadPoolExecutor
+# dir_base = os.path.abspath(os.path.dirname(__file__))
+dir_base = os.path.abspath(os.getcwd())
+
+# https://github.com/sixohsix/twitter
+sys.path = ["{}/libs/twitter".format(dir_base)]+sys.path
+
+logging.basicConfig(filename="{}/logs/collect_users_timelines.{}.log".format(dir_base, hostname),
+                    filemode="a", level=logging.INFO, format="[ %(asctime)s ] [%(levelname)s] %(message)s")
 
 lock = threading.Lock()
 
 # import keys from keys.py
 # from keys import consumer_key, consumer_secret, access_token, access_token_secret
-execfile("{}/scripts/keys.py".format(dir_base))
+# execfile("{}/scripts/keys.py".format(dir_base))
 
 # Go to http://dev.twitter.com and create an app (apps.twitter.com).
 # The consumer key and secret will be generated for you after
@@ -73,7 +68,7 @@ def para_ou_pega_nova_chave(param_api=None):
 
         trava = True
     else:
-        if(param_api != None):
+        if(param_api is not None):
 
             logging.info("Leave api key - {}".format(param_api.auth.consumer_key))
 
@@ -153,8 +148,8 @@ def get_twitter_timeline(user_id):
                 api = para_ou_pega_nova_chave(api)
             else:
                 # Se o erro for outro, registra e sai do loop
-                logging.warning("User {} - Error Status: {} - Reason: {} - Error: {}".format(user_id,
-                                                                                             e.response.status_code, e.response.reason, e.response.text))
+                logging.warning("User {} - Error Status: {} - Reason: {} - Error: {}".format(
+                    user_id, e.response.status_code, e.response.reason, e.response.text))
                 break
 
     # Se foram coletados tweets geolocalizados...
@@ -167,7 +162,7 @@ def get_twitter_timeline(user_id):
                 else:
                     dump = bytes(json.dumps(user_timeline), "UTF-8")
                 outfile.write(dump)
-            except:
+            except Exception:
                 logging.warning(
                     "User {} - Erro ao gerar bytes para escrita no json".format(user_id))
         logging.info("User {} - Finished ({} tweets)".format(user_id, len(user_timeline)))
