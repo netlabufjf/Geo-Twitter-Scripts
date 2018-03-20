@@ -21,7 +21,7 @@ def cria_lista_de_ids(cidade_param):
     if os.path.exists(graph_friends_output):
         graph_friends = nx.read_adjlist(graph_friends_output, create_using=nx.DiGraph())
 
-    pd.DataFrame([graph_friends.nodes()]).sort_values(by=['0']).to_csv(
+    pd.DataFrame([graph_friends.nodes()]).sort_values('0').to_csv(
         "{}/data/grafos/{}.friends.id_users.list.csv".format(dir_base, cidade_param), header=False, index=False)
 
     del graph_friends
@@ -34,7 +34,7 @@ def cria_lista_de_ids(cidade_param):
     if os.path.exists(graph_followers_output):
         graph_followers = nx.read_adjlist(graph_followers_output, create_using=nx.DiGraph())
 
-    pd.DataFrame([graph_followers.nodes()]).sort_values(by=['0']).to_csv(
+    pd.DataFrame([graph_followers.nodes()]).sort_values('0').to_csv(
         "{}/data/grafos/{}.followers.id_users.list.csv".format(dir_base, cidade_param), header=False, index=False)
 
     del graph_followers
