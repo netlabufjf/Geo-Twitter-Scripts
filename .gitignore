@@ -1,6 +1,6 @@
+data/*
+data/user_timeline/*
+data/grafos*
+logs/*
 
-data/user_timeline/
-
-logs/
-
-data/grafos
+!*.gitkeep
