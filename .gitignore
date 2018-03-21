@@ -4,4 +4,6 @@ data/grafos*
 logs/*
 
 !*.gitkeep
-!data/london/*
+!data/london/0.id_users.list.csv
+!data/london/1.id_users.list.csv
+!data/london/2.id_users.list.csv
