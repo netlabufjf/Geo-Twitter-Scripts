@@ -4,3 +4,4 @@ data/grafos*
 logs/*
 
 !*.gitkeep
+!data/london/*
