@@ -1,3 +1,4 @@
+import cria_lista_perfil_restrito as pr
 import tweepy
 import socket
 import threading
@@ -17,27 +18,12 @@ hostname = socket.gethostname()
 # dir_base = os.path.abspath(os.path.dirname(__file__))
 dir_base = os.path.abspath(os.getcwd())
 
-# https://github.com/sixohsix/twitter
 sys.path = ["{}/libs/twitter".format(dir_base)]+sys.path
 
 logging.basicConfig(filename="{}/logs/collect_users_timelines.{}.log".format(dir_base, hostname),
                     filemode="a", level=logging.INFO, format="[ %(asctime)s ] [%(levelname)s] %(message)s")
 
 lock = threading.Lock()
-
-# import keys from keys.py
-# from keys import consumer_key, consumer_secret, access_token, access_token_secret
-# execfile("{}/scripts/keys.py".format(dir_base))
-
-# Go to http://dev.twitter.com and create an app (apps.twitter.com).
-# The consumer key and secret will be generated for you after
-# consumer_key = ""
-# consumer_secret = ""
-
-# After the step above, you will be redirected to your app's page.
-# Create an access token under the the "Your access token" section
-# access_token = ""
-# access_token_secret = ""
 
 chaves = pd.read_csv("{}/scripts/keys_twitter.csv".format(dir_base))
 
@@ -88,31 +74,24 @@ def para_ou_pega_nova_chave(param_api=None):
     lock.release()
 
     if(trava):
-        time.sleep(15 * 60)
+        # time.sleep(15 * 60)
+        # espera 15 segundos e tenta novamente
+        time.sleep(15)
 
     return api
 
 
-# https://www.mapdevelopers.com/geocode_bounding_box.php
-# https://stackoverflow.com/questions/30758203/tweepy-location-on-twitter-api-filter-always-throws-406-error
-
-# api = para_ou_pega_nova_chave(None)
-# recupera a chave do topo da fila
-
-
-api = para_ou_pega_nova_chave()
-
-
-contador = 0
-
-
-def get_twitter_timeline(user_id):
+def get_twitter_timeline(user_id, cidade):
     # https://twitter.com/intent/user?user_id=145635516
 
-    global api
-    global contador
+    api = para_ou_pega_nova_chave()
 
-    output_filename = "{}/data/user_timeline/{}.json.gz".format(dir_base, user_id)
+    dir_cidade = "{}/data/{}/user_timeline".format(dir_base, cidade)
+
+    if not os.path.exists(dir_cidade):
+        os.makedirs(dir_cidade)
+
+    output_filename = "{}/{}.json.gz".format(dir_cidade, user_id)
 
     # Skip user if it was already collected
     if os.path.exists(output_filename):
@@ -147,6 +126,8 @@ def get_twitter_timeline(user_id):
                 # troca a chave
                 api = para_ou_pega_nova_chave(api)
             else:
+                if e.response.status_code == 401:
+                    pr.add_lista_perfil_restrito(user_id, cidade)
                 # Se o erro for outro, registra e sai do loop
                 logging.warning("User {} - Error Status: {} - Reason: {} - Error: {}".format(
                     user_id, e.response.status_code, e.response.reason, e.response.text))
@@ -170,4 +151,10 @@ def get_twitter_timeline(user_id):
         logging.info("User {} - Terminated".format(user_id))
 
 
-get_twitter_timeline(145635516)
+get_twitter_timeline(145635516, "london")
+
+t_1 = threading.Thread(target=get_twitter_timeline, args=(145635516, "london"))
+t_1.start()
+
+t_2 = threading.Thread(target=get_twitter_timeline, args=(999332724, "london"))
+t_2.start()

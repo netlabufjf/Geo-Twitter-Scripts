@@ -32,7 +32,7 @@ def cria_lista_de_ids(cidade_param):
 
     graph = nx.compose(graph_friends, graph_followers)
 
-    pd.DataFrame([graph.nodes()]).to_csv(
+    pd.DataFrame(list(graph.nodes())).to_csv(
         "{}/data/grafos/{}.complete.id_users.list.csv".format(dir_base, cidade_param), header=False, index=False)
 
     del graph
