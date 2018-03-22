@@ -4,10 +4,10 @@ Created on Tue Feb 27 21:28:27 2018
 @author: rooke
 """
 
-import sys
 import networkx as nx
 import os
 import pandas as pd
+import sys
 
 cidade = sys.argv[1]
 

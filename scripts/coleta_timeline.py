@@ -1,24 +1,25 @@
+from concurrent.futures import ThreadPoolExecutor
 import cria_lista_perfil_restrito as pr
-import tweepy
-import socket
-import threading
-import os
-import sys
-import logging
-import time
-import json
+import glob
 import gzip
+import json
+import logging
+import os
 import pandas as pd
+import socket
+import sys
+import threading
+import time
+import tweepy
 # import networkx as nx
 # import threading
-# from concurrent.futures import ThreadPoolExecutor
 
 hostname = socket.gethostname()
 
 # dir_base = os.path.abspath(os.path.dirname(__file__))
 dir_base = os.path.abspath(os.getcwd())
 
-sys.path = ["{}/libs/twitter".format(dir_base)]+sys.path
+# sys.path = ["{}/libs/twitter".format(dir_base)]+sys.path
 
 logging.basicConfig(filename="{}/logs/collect_users_timelines.{}.log".format(dir_base, hostname),
                     filemode="a", level=logging.INFO, format="[ %(asctime)s ] [%(levelname)s] %(message)s")
@@ -151,10 +152,31 @@ def get_twitter_timeline(user_id, cidade):
         logging.info("User {} - Terminated".format(user_id))
 
 
-get_twitter_timeline(145635516, "london")
+def coleta_do_arquivo(nome_arquivo, cidade):
 
-t_1 = threading.Thread(target=get_twitter_timeline, args=(145635516, "london"))
-t_1.start()
+    arquivo = open(nome_arquivo, 'r')
+    for line in arquivo.readlines():
+        print "|"+line.rstrip()+"|"
+        get_twitter_timeline(line.rstrip(), cidade)
 
-t_2 = threading.Thread(target=get_twitter_timeline, args=(999332724, "london"))
-t_2.start()
+    arquivo.close()
+
+
+cidades = ["london", "saopaulo", "tokyo", "nyc"]
+
+with ThreadPoolExecutor(max_workers=20) as workers:
+    for cidade in cidades:
+        dir_cidade = "{}/data/{}".format(dir_base, cidade)
+        if os.path.exists(dir_cidade):
+            for file in glob.glob("{}/[0-9]*.id_users.list.csv".format(dir_cidade)):
+                print file
+                workers.submit(coleta_do_arquivo, file, cidade)
+
+# workers.submit(get_twitter_timeline, 145635516, "london")
+# workers.submit(get_twitter_timeline, 999332724, "london")
+
+# t_1 = threading.Thread(target=get_twitter_timeline, args=(145635516, "london"))
+# t_1.start()
+
+# t_2 = threading.Thread(target=get_twitter_timeline, args=(999332724, "london"))
+# t_2.start()
