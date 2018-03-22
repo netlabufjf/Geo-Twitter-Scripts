@@ -16,7 +16,7 @@ import tweepy
 
 hostname = socket.gethostname()
 
-dir_base = os.path.abspath(os.path.dirname(__file__))
+dir_base = os.path.abspath(os.path.dirname(__file__))+"/.."
 # dir_base = os.path.abspath(os.getcwd())
 
 # sys.path = ["{}/libs/twitter".format(dir_base)]+sys.path
