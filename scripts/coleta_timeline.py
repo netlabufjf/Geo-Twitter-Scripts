@@ -26,7 +26,7 @@ logging.basicConfig(filename="{}/logs/collect_users_timelines.{}.log".format(dir
 
 lock = threading.Lock()
 
-chaves = pd.read_csv("{}/scripts/keys_twitter.csv".format(dir_base))
+chaves = pd.read_csv("{}/data/keys_twitter.csv".format(dir_base))
 
 consumer_key_list = chaves.consumer_key.tolist()
 consumer_secret_list = chaves.consumer_secret.tolist()
