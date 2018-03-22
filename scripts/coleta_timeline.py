@@ -70,15 +70,18 @@ def pega_nova_chave():
 
             time.sleep(2)
         else:
-            lock.acquire()
 
-            passou_pelo_lock = True
+            passou_pelo_lock = False
+
+            lock.acquire()
 
             # garante dentro do lock que nao esta vazio
             if(len(consumer_key_list) > 0 and
                     len(consumer_secret_list) > 0 and
                     len(acess_token_list) > 0 and
                     len(access_token_secret_list) > 0):
+
+                passou_pelo_lock = True
 
                 # recupera a chave do topo da fila
                 auth = tweepy.OAuthHandler(consumer_key_list.pop(), consumer_secret_list.pop())
