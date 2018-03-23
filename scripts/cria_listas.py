@@ -3,7 +3,7 @@ import os
 
 def add_lista_perfil_restrito(id_user, cidade):
 
-    dir_base = os.path.abspath(os.getcwd())+""
+    dir_base = os.path.abspath(os.path.dirname(__file__))+"/.."
 
     dir_cidade = "{}/data/{}".format(dir_base, cidade)
 
@@ -17,7 +17,7 @@ def add_lista_perfil_restrito(id_user, cidade):
 
 def add_lista_nogeotagged(id_user, cidade):
 
-    dir_base = os.path.abspath(os.getcwd())+""
+    dir_base = os.path.abspath(os.path.dirname(__file__))+"/.."
 
     dir_cidade = "{}/data/{}".format(dir_base, cidade)
 
