@@ -18,9 +18,8 @@ for cidade in cidades:
             print file
             print os.path.basename(file)
             print '{}/{}.{}'.format(caminho, cidade, os.path.basename(file).replace("csv", "conf"), contador_chave)
-            contador_chave += 1
             arq_principal = open('{}/{}.{}'.format(caminho, cidade, os.path.basename(file).replace("csv", "conf")), 'a')
-            arq_principal.write("[program:{}.{}]\n".format(cidade, os.path.basename(file).replace("csv", "")))
+            arq_principal.write("[program:{}.{}]\n".format(cidade, os.path.basename(file).replace(".csv", "")))
             arq_principal.write("command=python {}/coleta_timeline_uma_chave_por_thread.py {} {} {}\n".format(dir_base,
                                 cidade, file, contador_chave))
             arq_principal.write("autostart=true\n")
@@ -28,3 +27,4 @@ for cidade in cidades:
             arq_principal.write("stderr_logfile=/hd/novacoleta/Geo-Twitter-Scripts/logs/coleta.err.log\n")
             arq_principal.write("stdout_logfile=/hd/novacoleta/Geo-Twitter-Scripts/logs/coleta.out.log\n")
             arq_principal.close()
+            contador_chave += 1
