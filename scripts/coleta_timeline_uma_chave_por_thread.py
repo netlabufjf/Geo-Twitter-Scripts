@@ -1,5 +1,6 @@
 # from concurrent.futures import ThreadPoolExecutor
 import cria_listas as crialistas
+import verifica_listas as verificalistas
 import gzip
 import json
 import logging
@@ -11,15 +12,19 @@ import tweepy
 # import networkx as nx
 # import threading
 
-cidade = sys.argv[1]
-lista_de_ids = sys.argv[2]
-id_key = int(sys.argv[3])
+# cidade = sys.argv[1]
+# lista_de_ids = sys.argv[2]
+# id_key = int(sys.argv[3])
+
 
 hostname = socket.gethostname()
 
 dir_base = os.path.abspath(os.path.dirname(__file__))+"/.."
 
-print dir_base
+cidade = "london"
+lista_de_ids = "{}/data/{}/0.id_users.list.csv".format(dir_base, cidade)
+id_key = 0
+
 # dir_base = os.path.abspath(os.getcwd())
 
 # sys.path = ["{}/libs/twitter".format(dir_base)]+sys.path
@@ -52,6 +57,16 @@ def get_twitter_timeline(user_id, cidade):
     # Skip user if it was already collected
     if os.path.exists(output_filename):
         logging.info("[{}] User {} - Skipped".format(cidade, user_id))
+        return
+
+    # Skip user if it was already in nogeotagged list
+    if verificalistas.in_lista_nogeotagged(user_id, cidade):
+        logging.info("[{}] User {} - Skipped - in nogeotagged".format(cidade, user_id))
+        return
+
+    # Skip user if it was already in restrict list
+    if verificalistas.in_lista_perfil_restrito(user_id, cidade):
+        logging.info("[{}] User {} - Skipped - in restrict list".format(cidade, user_id))
         return
 
     # Senao existe usuario coletado...
@@ -102,7 +117,8 @@ def get_twitter_timeline(user_id, cidade):
             except Exception:
                 logging.warning(
                     "[{}] User {} - Erro ao gerar bytes para escrita no json".format(cidade, user_id))
-        logging.info("[{}] User {} - Finished ({} tweets)".format(cidade, user_id, len(user_timeline)))
+        logging.info("[{}] User {} - Finished ({} tweets)".format(cidade,
+                                                                  user_id, len(user_timeline)))
     else:
         crialistas.add_lista_nogeotagged(user_id, cidade)
         logging.info("[{}] User {} - Terminated - no geotagged tweets".format(cidade, user_id))
