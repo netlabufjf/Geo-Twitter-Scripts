@@ -12,18 +12,18 @@ import tweepy
 # import networkx as nx
 # import threading
 
-# cidade = sys.argv[1]
-# lista_de_ids = sys.argv[2]
-# id_key = int(sys.argv[3])
+cidade = sys.argv[1]
+lista_de_ids = sys.argv[2]
+id_key = int(sys.argv[3])
 
 
 hostname = socket.gethostname()
 
 dir_base = os.path.abspath(os.path.dirname(__file__))+"/.."
 
-cidade = "london"
-lista_de_ids = "{}/data/{}/0.id_users.list.csv".format(dir_base, cidade)
-id_key = 0
+# cidade = "london"
+# lista_de_ids = "{}/data/{}/0.id_users.list.csv".format(dir_base, cidade)
+# id_key = 0
 
 # dir_base = os.path.abspath(os.getcwd())
 
