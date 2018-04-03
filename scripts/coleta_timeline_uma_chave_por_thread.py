@@ -21,10 +21,7 @@ hostname = socket.gethostname()
 
 dir_base = os.path.abspath(os.path.dirname(__file__))+"/.."
 
-# cidade = "london"
-# lista_de_ids = "{}/data/{}/0.id_users.list.csv".format(dir_base, cidade)
-# id_key = 0
-
+# print dir_base
 # dir_base = os.path.abspath(os.getcwd())
 
 # sys.path = ["{}/libs/twitter".format(dir_base)]+sys.path
