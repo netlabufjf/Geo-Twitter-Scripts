@@ -86,20 +86,29 @@ def get_twitter_timeline(user_id, cidade):
             coletou = True
 
         except tweepy.TweepError as e:
-            # Se excedeu o numero de requisicoes
-            if e.response.status_code == 429:
-                user_timeline = []
-                logging.warning("[{}] User {} - Error Status: {} - Reason: {} - Error: {}".format(
-                    cidade, user_id, e.response.status_code, e.response.reason, e.response.text))
-                logging.warning("[{}] User {} - Coletando novamente".format(cidade, user_id))
-            else:
-                if e.response.status_code == 401:
-                    crialistas.add_lista_perfil_restrito(user_id, cidade)
-                # Se o erro for outro, registra e sai do loop
-                logging.warning("[{}] User {} - Error Status: {} - Reason: {} - Error: {}".format(
-                    cidade, user_id, e.response.status_code, e.response.reason, e.response.text))
 
-                coletou = True
+            if e.response is not None:
+                if e.response.status_code is not None:
+
+                    # Se excedeu o numero de requisicoes
+                    if e.response.status_code == 429:
+                        user_timeline = []
+                        logging.warning("[{}] User {} - Error Status: {} - Reason: {} - Error: {}".format(
+                            cidade, user_id, e.response.status_code, e.response.reason, e.response.text))
+                        logging.warning("[{}] User {} - Coletando novamente".format(cidade, user_id))
+                    else:
+                        if e.response.status_code == 401:
+                            crialistas.add_lista_perfil_restrito(user_id, cidade)
+                        # Se o erro for outro, registra e sai do loop
+                        logging.warning("[{}] User {} - Error Status: {} - Reason: {} - Error: {}".format(
+                            cidade, user_id, e.response.status_code, e.response.reason, e.response.text))
+
+                        coletou = True
+        except Exception as e:
+            # Se o erro for outro, registra e sai do loop
+            logging.warning("[{}] User {} - Erro Desconhecido: {} - Reason: {} - Error: {}".format(
+                cidade, user_id, e.message))
+            coletou = True
 
     # Se foram coletados tweets geolocalizados...
     if user_timeline is not None and len(user_timeline) > 0:
