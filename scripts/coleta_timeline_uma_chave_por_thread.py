@@ -132,11 +132,23 @@ def get_twitter_timeline(user_id, cidade):
 
 def coleta_do_arquivo(nome_arquivo, cidade):
 
-    arquivo = open(nome_arquivo, 'r')
-    for line in arquivo.readlines():
-        get_twitter_timeline(line.rstrip(), cidade)
-
-    arquivo.close()
+    while 1:
+        # open in read / write mode
+        with open(nome_arquivo, 'r+') as arquivo:
+            linha = arquivo.readline()
+            if not linha:
+                break
+            # read the first line and use
+            get_twitter_timeline(linha.rstrip(), cidade)
+            # read the rest
+            data = arquivo.read()
+            # set the cursor to the top of the file
+            arquivo.seek(0)
+            # write the data back
+            arquivo.write(data)
+            # set the file size to the current size
+            arquivo.truncate()
+            arquivo.close()
 
 
 coleta_do_arquivo(lista_de_ids, cidade)
