@@ -1,6 +1,6 @@
 # from concurrent.futures import ThreadPoolExecutor
+import apaga_listas as apagalistas
 import cria_listas as crialistas
-import verifica_listas as verificalistas
 import gzip
 import json
 import logging
@@ -9,6 +9,7 @@ import pandas as pd
 import socket
 import sys
 import tweepy
+import verifica_listas as verificalistas
 # import networkx as nx
 # import threading
 
@@ -66,8 +67,16 @@ def get_twitter_timeline(user_id, cidade):
         logging.info("[{}] User {} - Skipped - in restrict list".format(cidade, user_id))
         return
 
+    # Skip user if it was already but crashed
+    if verificalistas.in_lista_processados(user_id, cidade):
+        logging.info("[{}] User {} - Skipped - in processados list".format(cidade, user_id))
+        return
+
     # Senao existe usuario coletado...
     logging.info("[{}] User {} - Starting".format(cidade, user_id))
+
+    # Add na lista de processados
+    crialistas.add_lista_processados_com_erro(user_id, cidade)
 
     user_timeline = []
 
@@ -85,6 +94,9 @@ def get_twitter_timeline(user_id, cidade):
 
             coletou = True
 
+            apagalistas.remove_line(
+                user_id, "{}/processados_erro.id_users.list.csv".format(dir_cidade))
+
         except tweepy.TweepError as e:
 
             if e.response is not None:
@@ -95,7 +107,8 @@ def get_twitter_timeline(user_id, cidade):
                         user_timeline = []
                         logging.warning("[{}] User {} - Error Status: {} - Reason: {} - Error: {}".format(
                             cidade, user_id, e.response.status_code, e.response.reason, e.response.text))
-                        logging.warning("[{}] User {} - Coletando novamente".format(cidade, user_id))
+                        logging.warning(
+                            "[{}] User {} - Coletando novamente".format(cidade, user_id))
                     else:
                         if e.response.status_code == 401:
                             crialistas.add_lista_perfil_restrito(user_id, cidade)
@@ -104,11 +117,18 @@ def get_twitter_timeline(user_id, cidade):
                             cidade, user_id, e.response.status_code, e.response.reason, e.response.text))
 
                         coletou = True
+
+                        apagalistas.remove_line(
+                            user_id, "{}/processados_erro.id_users.list.csv".format(dir_cidade))
+
         except Exception as e:
             # Se o erro for outro, registra e sai do loop
             logging.warning("[{}] User {} - Erro Desconhecido: {} - Reason: {} - Error: {}".format(
                 cidade, user_id, e.message))
             coletou = True
+
+            apagalistas.remove_line(
+                user_id, "{}/processados_erro.id_users.list.csv".format(dir_cidade))
 
     # Se foram coletados tweets geolocalizados...
     if user_timeline is not None and len(user_timeline) > 0:
