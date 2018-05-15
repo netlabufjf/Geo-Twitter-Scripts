@@ -45,12 +45,13 @@ def get_twitter_timeline(user_id, cidade):
 
     global api
 
-    dir_cidade = "{}/data/{}/user_timeline".format(dir_base, cidade)
+    dir_cidade = "{}/data/{}".format(dir_base, cidade)
+    dir_cidade_timelines = "{}/data/{}/user_timeline".format(dir_base, cidade)
 
-    if not os.path.exists(dir_cidade):
-        os.makedirs(dir_cidade)
+    if not os.path.exists(dir_cidade_timelines):
+        os.makedirs(dir_cidade_timelines)
 
-    output_filename = "{}/{}.json.gz".format(dir_cidade, user_id)
+    output_filename = "{}/{}.json.gz".format(dir_cidade_timelines, user_id)
 
     # Skip user if it was already collected
     if os.path.exists(output_filename):
