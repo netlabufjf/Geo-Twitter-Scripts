@@ -13,7 +13,7 @@ dir_base = caminho_desse_arquivo+"/../.."
 
 # dir_base = "/home/rooke/Projetos/Geo-Twitter-Scripts/scripts/analises/../.."
 
-print dir_base
+print(dir_base)
 
 # Ideias
 # Pega todos os ids de usuarios do grafo e subtrai deles todos os usuarios coletados
@@ -22,7 +22,8 @@ print dir_base
 
 
 # Pega todos os ids do grafo
-arq_lista_completa = open('{}/data/grafos/{}.complete.id_users.list.csv'.format(dir_base, cidade_param), 'r')
+arq_lista_completa = open(
+    '{}/data/grafos/{}.complete.id_users.list.csv'.format(dir_base, cidade_param), 'r')
 
 lista_completa = []
 for i, line in enumerate(arq_lista_completa.readlines()):
@@ -34,7 +35,8 @@ arq_lista_completa.close()
 # ls -1 | ls -1 | sed -e 's/\.json.gz$//' > ../coletados.id_users.list.csv
 
 # Pega todos os ids dos coletados
-arq_lista_coleta = open('{}/data/grafos/{}.complete.id_users.list.csv'.format(dir_base, cidade_param), 'r')
+arq_lista_coleta = open(
+    '{}/data/grafos/{}.complete.id_users.list.csv'.format(dir_base, cidade_param), 'r')
 
 lista_coleta = []
 for i, line in enumerate(arq_lista_coleta.readlines()):
@@ -56,7 +58,8 @@ if os.path.exists(graph_friends_output):
 # Pega o grafo de seguidores
 graph_followers = nx.DiGraph()
 
-graph_followers_output = "{}/data/grafos/{}.graph_user.followers.adjlist".format(dir_base, cidade_param)
+graph_followers_output = "{}/data/grafos/{}.graph_user.followers.adjlist".format(
+    dir_base, cidade_param)
 
 if os.path.exists(graph_followers_output):
     graph_followers = nx.read_adjlist(graph_followers_output, create_using=nx.DiGraph())
@@ -72,7 +75,7 @@ for id in diferenca:
     if graph_complete.has_node(id):
         graph_complete.remove_node(id)
     else:
-        print "Grafo nao tem o no: "+id
+        print("Grafo nao tem o no: "+id)
 
 
 # Grava grafo processado
@@ -93,4 +96,4 @@ with gzip.open(output_filename, "w") as outfile:
             dump = bytes(json.dumps(link_data_format), "UTF-8")
         outfile.write(dump)
     except Exception:
-        print "Erro ao gerar bytes para escrita no json cidade: {}".format(cidade_param)
+        print("Erro ao gerar bytes para escrita no json cidade: {}".format(cidade_param))
