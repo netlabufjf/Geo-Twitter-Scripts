@@ -1,6 +1,8 @@
 from extract_list_geo import extract_list_geo
 import gzip
 import json
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from networkx.readwrite import json_graph
 import numpy as np
@@ -62,7 +64,7 @@ x = df.sort_values(by='num_tweets')['num_tweets'].values
 y = np.arange(1.0, len(x)+1) / len(x)
 
 # Configurando a saida em imagem
-fig = plt.figure()
+# fig = plt.figure()
 
 # Ingrediente 2 - Customize suas linhas
 # Ingredient 2 - Custom your lines
@@ -103,4 +105,4 @@ fig = ax.get_figure()
 
 arquivo_saida = '{}/data/{}/CDF_num_tweets.png'.format(dir_base, cidade_param)
 
-fig.savefig()
+fig.savefig(arquivo_saida)
