@@ -1,12 +1,14 @@
 import gzip
 import json
+import matplotlib
 import matplotlib.pyplot as plt
-import networkx as nx
 from networkx.readwrite import json_graph
 import numpy as np
 import os
 import pandas as pd
 import sys
+
+matplotlib.use('Agg')
 
 # pega a cidade que sera gerado os graficos
 cidade_param = sys.argv[1]
@@ -60,6 +62,9 @@ if grafo is not None:
     # Dont touch in Y
     # Nao mexa no Y
     y = np.arange(1.0, len(x)+1) / len(x)
+
+    # Configurando a saida em imagem
+    # fig = plt.figure()
 
     # Ingrediente 2 - Customize suas linhas
     # Ingredient 2 - Custom your lines
