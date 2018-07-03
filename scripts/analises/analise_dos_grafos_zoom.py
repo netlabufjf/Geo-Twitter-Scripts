@@ -116,7 +116,7 @@ if grafo is not None:
 
     # Ingrediente 4 - Add the Ingredient 4 from cookbook
     # Ingrediente 4 - Adicione o Ingrediente 4 da Receita de Bolo
-    axins.plt.plot(x, y, marker='.', linestyle='none')
+    axins.plot(x, y, marker='.', linestyle='none')
 
     axins.set_xlim(x1, x2)
     axins.set_ylim(y1, y2)
