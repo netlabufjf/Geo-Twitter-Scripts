@@ -106,13 +106,13 @@ if grafo is not None:
 
     # Ingredient 2 - Select the range from zoom in y
     # Ingrediente 2 - Seleciona o intervalo do zoom no y
-    y1 = 0.9
+    y1 = 0.98
     y2 = 1
 
     # Ingredient 3 - Define zoom (parameter 2) and define the location (loc):
     # Ingrediente 3 - Defina o tamanho do zoom na plotagem (parametro 2) e defina a localizacao do zoom (loc):
     # loc
-    axins = zoomed_inset_axes(ax, 5, loc=4)
+    axins = zoomed_inset_axes(ax, 10, loc=4)
 
     # Ingrediente 4 - Add the Ingredient 4 from cookbook
     # Ingrediente 4 - Adicione o Ingrediente 4 da Receita de Bolo
@@ -135,7 +135,7 @@ if grafo is not None:
 
     # Ingredient 7 - Define the location 1 and 2 from zoom lines
     # Ingrediente 7 - Defina a localizacao 1 e 2 das linhas do zoom
-    mark_inset(ax, axins, loc1=2, loc2=4, fc="none", ec="0.8")
+    mark_inset(ax, axins, loc1=1, loc2=2, fc="none", ec="0.8")
     plt.draw()
 
     fig = ax.get_figure()
