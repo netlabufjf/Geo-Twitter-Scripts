@@ -101,7 +101,7 @@ if grafo is not None:
 
     fig = ax.get_figure()
 
-    arquivo_saida = '{}/data/{}/CDF_out_degree.png'.format(dir_base, cidade_param)c
+    arquivo_saida = '{}/data/{}/CDF_out_degree.png'.format(dir_base, cidade_param)
     if in_out == "in":
         arquivo_saida = '{}/data/{}/CDF_in_degree.png'.format(dir_base, cidade_param)
 
