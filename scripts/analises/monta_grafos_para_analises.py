@@ -36,7 +36,7 @@ arq_lista_completa.close()
 
 # Pega todos os ids dos coletados
 arq_lista_coleta = open(
-    '{}/data/grafos/{}.complete.id_users.list.csv'.format(dir_base, cidade_param), 'r')
+    '{}/data/{}/coletados.id_users.list.csv'.format(dir_base, cidade_param), 'r')
 
 lista_coleta = []
 for i, line in enumerate(arq_lista_coleta.readlines()):
