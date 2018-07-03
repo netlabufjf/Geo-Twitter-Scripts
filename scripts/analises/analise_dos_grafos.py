@@ -61,9 +61,6 @@ if grafo is not None:
     # Nao mexa no Y
     y = np.arange(1.0, len(x)+1) / len(x)
 
-    # Configurando a saida em imagem
-    fig = plt.figure()
-
     # Ingrediente 2 - Customize suas linhas
     # Ingredient 2 - Custom your lines
     plt.plot(x, y, marker='.', linestyle='none')
@@ -105,4 +102,4 @@ if grafo is not None:
     if in_out == "in":
         arquivo_saida = '{}/data/{}/CDF_in_degree.png'.format(dir_base, cidade_param)
 
-    fig.savefig()
+    fig.savefig(arquivo_saida)
