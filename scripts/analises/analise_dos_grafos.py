@@ -1,14 +1,13 @@
 import gzip
 import json
 import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from networkx.readwrite import json_graph
 import numpy as np
 import os
 import pandas as pd
 import sys
-
-matplotlib.use('Agg')
 
 # pega a cidade que sera gerado os graficos
 cidade_param = sys.argv[1]
