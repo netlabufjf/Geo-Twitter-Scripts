@@ -102,7 +102,7 @@ if grafo is not None:
     # Ingredient 1 - Select the range from zoom in x
     # Ingrediente 1 - Seleciona o intervalo do zoom no x
     x1 = 0.0
-    x2 = 1500
+    x2 = 500
 
     # Ingredient 2 - Select the range from zoom in y
     # Ingrediente 2 - Seleciona o intervalo do zoom no y
