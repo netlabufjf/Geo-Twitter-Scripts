@@ -69,7 +69,7 @@ if grafo is not None:
 
     # Ingredient 3 - Define your label axis
     # Ingrediente 3 - Defina os rotulos dos eixos
-    plt.xlabel("Duracao em Horas")
+    plt.xlabel("Gral de Saida")
     plt.ylabel("ECDF")
     plt.margins(0.02)
 
