@@ -45,11 +45,11 @@ if grafo is not None:
     for no in grafo:
         if in_out == "in":
             grau_entrada = grafo.in_degree(no)
-            if grau_entrada > 0:
+            if grau_entrada > 1:
                 list_degree_in_out.append(grafo.in_degree(no))
         else:
             grau_saida = grafo.out_degree(no)
-            if grau_saida > 0:
+            if grau_saida > 1:
                 list_degree_in_out.append(grafo.out_degree(no))
 
     # Plot CDF
