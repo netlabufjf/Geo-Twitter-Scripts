@@ -106,7 +106,7 @@ if grafo is not None:
     # Ingredient 1 - Select the range from zoom in x
     # Ingrediente 1 - Seleciona o intervalo do zoom no x
     x1 = 0.0
-    x2 = 900
+    x2 = 400
 
     # Ingredient 2 - Select the range from zoom in y
     # Ingrediente 2 - Seleciona o intervalo do zoom no y
@@ -116,7 +116,7 @@ if grafo is not None:
     # Ingredient 3 - Define zoom (parameter 2) and define the location (loc):
     # Ingrediente 3 - Defina o tamanho do zoom na plotagem (parametro 2) e defina a localizacao do zoom (loc):
     # loc
-    axins = zoomed_inset_axes(ax, 5, loc=4)
+    axins = zoomed_inset_axes(ax, 4, loc=4)
 
     # Ingrediente 4 - Add the Ingredient 4 from cookbook
     # Ingrediente 4 - Adicione o Ingrediente 4 da Receita de Bolo
