@@ -43,9 +43,13 @@ print("passou")
 if grafo is not None:
     for no in grafo:
         if in_out == "in":
-            list_degree_in_out.append(grafo.in_degree(no))
+            grau_entrada = grafo.in_degree(no)
+            if grau_entrada > 1:
+                list_degree_in_out.append(grafo.in_degree(no))
         else:
-            list_degree_in_out.append(grafo.out_degree(no))
+            grau_saida = grafo.out_degree(no)
+            if grau_saida > 1:
+                list_degree_in_out.append(grafo.out_degree(no))
 
     # Plot CDF
 
