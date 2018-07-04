@@ -106,7 +106,7 @@ if grafo is not None:
 
     # Ingredient 2 - Select the range from zoom in y
     # Ingrediente 2 - Seleciona o intervalo do zoom no y
-    y1 = 0.99
+    y1 = 0.98
     y2 = 1
 
     # Ingredient 3 - Define zoom (parameter 2) and define the location (loc):
