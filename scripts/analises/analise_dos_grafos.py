@@ -76,9 +76,9 @@ if grafo is not None:
     # Ingredient 3 - Define your label axis
     # Ingrediente 3 - Defina os rotulos dos eixos
     if in_out == "in":
-        plt.xlabel("Gral de Entrada")
+        plt.xlabel("Grau de Entrada")
     else:
-        plt.xlabel("Gral de Saida")
+        plt.xlabel("Grau de Saida")
     plt.ylabel("ECDF")
     plt.margins(0.02)
 
