@@ -3,16 +3,18 @@ import json
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+from mpl_toolkits.axes_grid1.inset_locator import zoomed_inset_axes, mark_inset
 from networkx.readwrite import json_graph
+import networkx as nx
 import numpy as np
 import os
 import pandas as pd
 import sys
 
 # pega a cidade que sera gerado os graficos
-# cidade_param = sys.argv[1]
+cidade_param = sys.argv[1]
 
-cidade_param = "london"
+# cidade_param = "london"
 
 caminho_desse_arquivo = os.path.abspath(os.path.dirname(__file__))
 dir_base = caminho_desse_arquivo+"/../.."
