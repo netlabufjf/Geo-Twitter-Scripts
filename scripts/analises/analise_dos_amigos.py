@@ -60,6 +60,8 @@ if grafo is not None:
         # add a quantidade de amigos que o no tem
         grau_de_amizade.append(contador_de_amigos)
 
+    print "Pessoas analisadas e que tem amigos [{}]: {}".format(cidade_param, len(grau_de_amizade))
+
     del grafo
 
     # Plot CDF
