@@ -41,6 +41,21 @@ list_degree_in_out = []
 print("passou")
 
 
+def add_lista_amizade(id_user, cidade):
+
+    caminho_desse_arquivo = os.path.abspath(os.path.dirname(__file__))
+    dir_base = caminho_desse_arquivo+"/../.."
+
+    dir_cidade = "{}/data/{}".format(dir_base, cidade)
+
+    if not os.path.exists(dir_cidade):
+        os.makedirs(dir_cidade)
+
+    arquivo = open("{}/amizade.id_users.list.csv".format(dir_cidade), "a")
+    arquivo.write(str(id_user)+"\n")
+    arquivo.close()
+
+
 if grafo is not None:
     amizade = []
     grau_de_amizade = []
@@ -57,6 +72,8 @@ if grafo is not None:
                 if((no, edge[1]) or (edge[1], no)) not in amizade:
                     amizade.append((edge[1], no))
                     contador_de_amigos += 1
+                    add_lista_amizade(edge[1], cidade_param)
+                    add_lista_amizade(no, cidade_param)
         # add a quantidade de amigos que o no tem, apenas se existe amizade
         if contador_de_amigos > 0:
             grau_de_amizade.append(contador_de_amigos)
