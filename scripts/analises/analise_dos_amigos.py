@@ -57,8 +57,9 @@ if grafo is not None:
                 if((no, edge[1]) or (edge[1], no)) not in amizade:
                     amizade.append((edge[1], no))
                     contador_de_amigos += 1
-        # add a quantidade de amigos que o no tem
-        grau_de_amizade.append(contador_de_amigos)
+        # add a quantidade de amigos que o no tem, apenas se existe amizade
+        if contador_de_amigos > 0:
+            grau_de_amizade.append(contador_de_amigos)
 
     print "Pessoas analisadas e que tem amigos [{}]: {}".format(cidade_param, len(grau_de_amizade))
 
