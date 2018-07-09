@@ -22,6 +22,22 @@ output_filename = '{}/data/{}/graph_complete.node_link_data.json.gz'.format(dir_
 
 grafo = None
 
+
+def add_lista(nome_lista, id_user, cidade):
+
+    caminho_desse_arquivo = os.path.abspath(os.path.dirname(__file__))
+    dir_base = caminho_desse_arquivo+"/../.."
+
+    dir_cidade = "{}/data/{}".format(dir_base, cidade)
+
+    if not os.path.exists(dir_cidade):
+        os.makedirs(dir_cidade)
+
+    arquivo = open("{}/{}.id_users.list.csv".format(nome_lista, dir_cidade), "a")
+    arquivo.write(str(id_user)+"\n")
+    arquivo.close()
+
+
 #  Grava o formato link_data:
 with gzip.open(output_filename, "rb") as input_file:
     json_bytes = input_file.read()
@@ -41,7 +57,10 @@ lista_count_tweets = []
 for no in grafo:
     arquivo_no = '{}/data/{}/user_timeline/{}.json.gz'.format(dir_base, cidade_param, no)
 
-    lista_count_tweets.append(len(extract_list_geo(arquivo_no)))
+    try:
+        lista_count_tweets.append(len(extract_list_geo(arquivo_no)))
+    except Exception:
+        add_lista("count_tweets_error", no, cidade_param)
 
     # df = df.append({'lat': dados_do_no[0],
     #                'lon': dados_do_no[1],
