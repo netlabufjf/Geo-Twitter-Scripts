@@ -33,7 +33,7 @@ def add_lista(nome_lista, id_user, cidade):
     if not os.path.exists(dir_cidade):
         os.makedirs(dir_cidade)
 
-    arquivo = open("{}/{}.id_users.list.csv".format(nome_lista, dir_cidade), "a")
+    arquivo = open("{}/{}.id_users.list.csv".format(dir_cidade, nome_lista), "a")
     arquivo.write(str(id_user)+"\n")
     arquivo.close()
 
